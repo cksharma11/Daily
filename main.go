@@ -81,6 +81,16 @@ func updateEvent(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func deleteEvent(w http.ResponseWriter, r *http.Request) {
+	eventID := mux.Vars(r)["id"]
+	for i, event := range events {
+		if event.ID == eventID {
+			events = append(events[:i], events[i+1:]...)
+			fmt.Fprintf(w, "event with id %s is deleted sucessfuly", eventID)
+		}
+	}
+}
+
 func hello(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hello API")
 }
@@ -93,6 +103,7 @@ func main() {
 	router.HandleFunc("/event/{id}", getOneEvent).Methods("GET")
 	router.HandleFunc("/events", getAllEvent).Methods("GET")
 	router.HandleFunc("/event/{id}", updateEvent).Methods("PUT")
+	router.HandleFunc("/event/{id}", deleteEvent).Methods("DELETE")
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
