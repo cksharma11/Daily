@@ -46,19 +46,6 @@ func createEvent(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(event)
 }
 
-func getSingleEvent(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("Atleast I'm coming inside")
-	eventID := mux.Vars(r)["id"]
-
-	fmt.Printf(eventID)
-
-	for _, singleEvent := range events {
-		if singleEvent.ID == eventID {
-			json.NewEncoder(w).Encode(singleEvent)
-		}
-	}
-}
-
 func getOneEvent(w http.ResponseWriter, r *http.Request) {
 	eventID := mux.Vars(r)["id"]
 
@@ -69,12 +56,12 @@ func getOneEvent(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func getAllEvent(w http.ResponseWriter, r *http.Request)  {
+func getAllEvent(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(events)
 }
 
 func hello(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello")
+	fmt.Fprintf(w, "Hello API")
 }
 
 func main() {
