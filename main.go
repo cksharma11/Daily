@@ -91,14 +91,14 @@ func deleteEvent(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func hello(w http.ResponseWriter, r *http.Request) {
+func helloAPI(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hello API")
 }
 
 func main() {
 	router := mux.NewRouter().StrictSlash(true)
 
-	router.HandleFunc("/", hello)
+	router.HandleFunc("/", helloAPI)
 	router.HandleFunc("/event", createEvent).Methods("POST")
 	router.HandleFunc("/event/{id}", getOneEvent).Methods("GET")
 	router.HandleFunc("/events", getAllEvent).Methods("GET")
