@@ -102,7 +102,7 @@ func main() {
 	router.HandleFunc("/event", createEvent).Methods("POST")
 	router.HandleFunc("/event/{id}", getOneEvent).Methods("GET")
 	router.HandleFunc("/events", getAllEvent).Methods("GET")
-	router.HandleFunc("/event/{id}", updateEvent).Methods("PUT")
+	router.HandleFunc("/event/{id}", updateEvent).Methods("PATCH")
 	router.HandleFunc("/event/{id}", deleteEvent).Methods("DELETE")
 
 	log.Fatal(http.ListenAndServe(":8080", router))
