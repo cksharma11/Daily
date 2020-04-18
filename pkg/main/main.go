@@ -18,6 +18,7 @@ func main() {
 	router.HandleFunc("/tasks", handler.GetAllTask).Methods("GET")
 	router.HandleFunc("/task/{id}", handler.UpdateTask).Methods("PATCH")
 	router.HandleFunc("/task/{id}", handler.DeleteTask).Methods("DELETE")
+	router.HandleFunc("/task/done/{id}", handler.MarkTaskDone).Methods("PATCH")
 
 	server := &http.Server{
 		Handler:      router,

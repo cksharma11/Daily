@@ -52,9 +52,8 @@ func UpdateTask(w http.ResponseWriter, r *http.Request) {
 
 	for i, t := range types.Tasks {
 		if t.ID == taskID {
-			t.Date = task.Date
-			t.Description = task.Description
-			types.Tasks = append(types.Tasks[:i], t)
+			types.Tasks[i].Date = task.Date
+			types.Tasks[i].Description = task.Description
 			json.NewEncoder(w).Encode(t)
 		}
 	}
@@ -65,7 +64,17 @@ func DeleteTask(w http.ResponseWriter, r *http.Request) {
 	for i, task := range types.Tasks {
 		if task.ID == taskID {
 			types.Tasks = append(types.Tasks[:i], types.Tasks[i+1:]...)
-			fmt.Fprintf(w, "event with id %s is deleted sucessfuly", taskID)
+			fmt.Fprintf(w, "task with id %s is deleted sucessfuly", taskID)
+		}
+	}
+}
+
+func MarkTaskDone(w http.ResponseWriter, r *http.Request) {
+	taskID := mux.Vars(r)["id"]
+	for i, task := range types.Tasks {
+		if task.ID == taskID {
+			types.Tasks[i].Done = true
+			json.NewEncoder(w).Encode(task)
 		}
 	}
 }
