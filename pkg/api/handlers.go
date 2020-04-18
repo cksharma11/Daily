@@ -69,11 +69,11 @@ func DeleteTask(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func MarkTaskDone(w http.ResponseWriter, r *http.Request) {
+func ToggleTaskDone(w http.ResponseWriter, r *http.Request) {
 	taskID := mux.Vars(r)["id"]
 	for i, task := range types.Tasks {
 		if task.ID == taskID {
-			types.Tasks[i].Done = true
+			types.Tasks[i].Done = !task.Done
 			json.NewEncoder(w).Encode(task)
 		}
 	}
