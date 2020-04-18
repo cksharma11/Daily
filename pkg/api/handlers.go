@@ -10,62 +10,62 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func CreateEvent(w http.ResponseWriter, r *http.Request) {
-	var event types.Event
+func CreateTask(w http.ResponseWriter, r *http.Request) {
+	var task types.Task
 	reqBody, err := ioutil.ReadAll(r.Body)
 
 	if err != nil {
-		fmt.Fprintf(w, "Enter the correct data")
+		fmt.Fprintf(w, "Enter task is correct format")
 	}
 
-	json.Unmarshal(reqBody, &event)
-	types.Events = append(types.Events, event)
+	json.Unmarshal(reqBody, &task)
+	types.Tasks = append(types.Tasks, task)
 	w.WriteHeader(http.StatusCreated)
 
-	json.NewEncoder(w).Encode(event)
+	json.NewEncoder(w).Encode(task)
 }
 
-func GetOneEvent(w http.ResponseWriter, r *http.Request) {
-	eventID := mux.Vars(r)["id"]
+func GetOneTask(w http.ResponseWriter, r *http.Request) {
+	taskID := mux.Vars(r)["id"]
 
-	for _, singleEvent := range types.Events {
-		if singleEvent.ID == eventID {
-			json.NewEncoder(w).Encode(singleEvent)
+	for _, task := range types.Tasks {
+		if task.ID == taskID {
+			json.NewEncoder(w).Encode(task)
 		}
 	}
 }
 
-func GetAllEvent(w http.ResponseWriter, r *http.Request) {
-	json.NewEncoder(w).Encode(types.Events)
+func GetAllTask(w http.ResponseWriter, r *http.Request) {
+	json.NewEncoder(w).Encode(types.Tasks)
 }
 
-func UpdateEvent(w http.ResponseWriter, r *http.Request) {
-	var event types.Event
-	eventID := mux.Vars(r)["id"]
+func UpdateTask(w http.ResponseWriter, r *http.Request) {
+	var task types.Task
+	taskID := mux.Vars(r)["id"]
 	reqBody, err := ioutil.ReadAll(r.Body)
 
 	if err != nil {
-		fmt.Fprintf(w, "Enter correct event structure")
+		fmt.Fprintf(w, "Enter correct task structure")
 	}
 
-	json.Unmarshal(reqBody, &event)
+	json.Unmarshal(reqBody, &task)
 
-	for i, singleEvent := range types.Events {
-		if singleEvent.ID == eventID {
-			singleEvent.Title = event.Title
-			singleEvent.Description = event.Description
-			types.Events = append(types.Events[:i], singleEvent)
-			json.NewEncoder(w).Encode(singleEvent)
+	for i, t := range types.Tasks {
+		if t.ID == taskID {
+			t.Date = task.Date
+			t.Description = task.Description
+			types.Tasks = append(types.Tasks[:i], t)
+			json.NewEncoder(w).Encode(t)
 		}
 	}
 }
 
-func DeleteEvent(w http.ResponseWriter, r *http.Request) {
-	eventID := mux.Vars(r)["id"]
-	for i, event := range types.Events {
-		if event.ID == eventID {
-			types.Events = append(types.Events[:i], types.Events[i+1:]...)
-			fmt.Fprintf(w, "event with id %s is deleted sucessfuly", eventID)
+func DeleteTask(w http.ResponseWriter, r *http.Request) {
+	taskID := mux.Vars(r)["id"]
+	for i, task := range types.Tasks {
+		if task.ID == taskID {
+			types.Tasks = append(types.Tasks[:i], types.Tasks[i+1:]...)
+			fmt.Fprintf(w, "event with id %s is deleted sucessfuly", taskID)
 		}
 	}
 }

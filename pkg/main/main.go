@@ -13,11 +13,11 @@ func main() {
 	router := mux.NewRouter().StrictSlash(true)
 
 	router.HandleFunc("/", handler.HelloAPI)
-	router.HandleFunc("/event", handler.CreateEvent).Methods("POST")
-	router.HandleFunc("/event/{id}", handler.GetOneEvent).Methods("GET")
-	router.HandleFunc("/events", handler.GetAllEvent).Methods("GET")
-	router.HandleFunc("/event/{id}", handler.UpdateEvent).Methods("PATCH")
-	router.HandleFunc("/event/{id}", handler.DeleteEvent).Methods("DELETE")
+	router.HandleFunc("/task", handler.CreateTask).Methods("POST")
+	router.HandleFunc("/task/{id}", handler.GetOneTask).Methods("GET")
+	router.HandleFunc("/tasks", handler.GetAllTask).Methods("GET")
+	router.HandleFunc("/task/{id}", handler.UpdateTask).Methods("PATCH")
+	router.HandleFunc("/task/{id}", handler.DeleteTask).Methods("DELETE")
 
 	server := &http.Server{
 		Handler:      router,

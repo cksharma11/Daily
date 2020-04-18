@@ -1,22 +1,22 @@
 package types
 
-type Event struct {
-	ID          string `json:"ID"`
-	Title       string `json:"Title"`
-	Description string `json:"Description"`
+type Task struct {
+	ID          string `json:"id"`
+	Date        string `json:"date"`
+	Description string `json:"description"`
 }
 
-type AllEvents []Event
+type AllTasks []Task
 
-var Events = AllEvents{
+var Tasks = AllTasks{
 	{
 		ID:          "1",
-		Title:       "Intro to rest API",
-		Description: "Some random description",
+		Date:        "2020-04-18T09:10:31.733Z",
+		Description: "Task 1",
 	},
 	{
 		ID:          "2",
-		Title:       "Some more intro to API",
-		Description: "Some more random description ",
+		Date:        "2020-04-18T09:10:31.733Z",
+		Description: "Task 2",
 	},
 }
