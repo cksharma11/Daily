@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"time"
 
 	"github.com/cksharma11/daily/pkg/types"
 	"github.com/gorilla/mux"
@@ -19,9 +20,10 @@ func CreateTask(w http.ResponseWriter, r *http.Request) {
 	}
 
 	json.Unmarshal(reqBody, &task)
+	task.Date = time.Now()
 	types.Tasks = append(types.Tasks, task)
-	w.WriteHeader(http.StatusCreated)
 
+	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(task)
 }
 
